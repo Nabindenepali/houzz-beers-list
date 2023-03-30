@@ -1,6 +1,7 @@
 import "./App.css";
 import {useEffect, useState} from "react";
-import {Button, Card} from "react-bootstrap";
+import {Card} from "react-bootstrap";
+import downArrow from "./assets/down-arrow.png";
 
 const Beer = ({ beer }) => {
   return (
@@ -42,26 +43,37 @@ const BeersView = ({ beers }) => {
 }
 
 const GeneralBeersList = () => {
-  const [beers, setBeers] = useState(null);
+  const [beers, setBeers] = useState([]);
+
+  let page = 1;
+
+  const beersFetch = async () => {
+    const data = await (
+      await fetch(
+        `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`
+      )
+    ).json();
+
+    setBeers([...beers, ...data]);
+  };
 
   useEffect(() => {
-    const beersFetch = async () => {
-      const beers = await (
-        await fetch(
-          "https://api.punkapi.com/v2/beers?page=1&per_page=10"
-        )
-      ).json();
-
-      setBeers(beers);
-    };
-
     beersFetch();
   }, []);
 
-  if (beers) {
+  const onLoadMore = () => {
+    page++;
+    beersFetch();
+  };
+
+  if (beers.length) {
     return (
       <>
         <BeersView beers={beers} />
+        <div className="load-more text-center" onClick={onLoadMore}>
+          <strong>Load More</strong>
+          <div className="arrow"><strong>^</strong></div>
+        </div>
       </>
     )
   }

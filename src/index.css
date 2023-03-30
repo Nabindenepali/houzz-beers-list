@@ -89,3 +89,18 @@ button:focus-visible {
 .beer-image {
   width: 2rem !important;
 }
+
+.load-more {
+  color: #0d6efd;
+  display: flex;
+  justify-content: center;
+}
+
+.load-more:hover {
+  cursor: pointer;
+}
+
+.arrow {
+  margin-left: .25rem;
+  transform: rotate(-180deg);
+}
