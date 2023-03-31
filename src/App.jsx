@@ -1,20 +1,21 @@
 import "./App.css";
 import {useEffect, useState} from "react";
-import {Card} from "react-bootstrap";
-import downArrow from "./assets/down-arrow.png";
+import {Card, Button} from "react-bootstrap";
 
 const Beer = ({ beer }) => {
   return (
-    <Card className="beer-card flex-row">
-      <Card.Header className="beer-header">
-        <Card.Img className="beer-image" src={beer.image_url} />
-      </Card.Header>
-      <Card.Body className="beer-body">
-        <Card.Title>{beer.name}</Card.Title>
-        <Card.Subtitle className="beer-subtitle mb-2">{beer.tagline}</Card.Subtitle>
-        <Card.Text>{beer.description}</Card.Text>
-      </Card.Body>
-    </Card>
+    <div className="col-12">
+      <Card className="beer-card flex-row">
+        <Card.Header className="beer-header">
+          <Card.Img className="beer-image" src={beer.image_url} />
+        </Card.Header>
+        <Card.Body className="beer-body">
+          <Card.Title>{beer.name}</Card.Title>
+          <Card.Subtitle className="beer-subtitle mb-2">{beer.tagline}</Card.Subtitle>
+          <Card.Text>{beer.description}</Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 
@@ -28,15 +29,18 @@ const NewBeerForm = () => {
 
 const EmptyBeerPage = () => {
   return (
-    <div>
-      There are no beers here dude
+    <div className="no-beer">
+      <div className="row">
+        <div className="col-12">Nothing to see yet.</div>
+        <div className="col-12"><a href="#">Click here</a> to add your first beer!</div>
+      </div>
     </div>
   )
 }
 
 const BeersView = ({ beers }) => {
   return (
-    <div>
+    <div className="row">
       {beers.map((beer, i) => <Beer beer={beer} key={i}/>)}
     </div>
   )
@@ -82,18 +86,29 @@ const GeneralBeersList = () => {
 const CustomBeersList = () => {
   return (
     <>
-      Custom beers list
-      <BeersView />
+      <EmptyBeerPage />
     </>
   )
 }
 
 const BeersList = () => {
+  const [tab, setTab] = useState("all")
+
+  const changeTab = (tab) => {
+    setTab(tab)
+  };
+
   return (
-    <>
-      <h4>All Beers</h4>
-      <GeneralBeersList />
-    </>
+    <div className="row">
+      <div className="col-12 tabs">
+        <span className={tab === "all" ? "active" : ""} onClick={() => changeTab("all")}>All Beers</span>
+        <span className={tab === "custom" ? "active" : ""} onClick={() => changeTab("custom")}>My Beers</span>
+        {tab === "custom" && <Button className="float-end" variant="primary">Add a new beer</Button>}
+      </div>
+
+      {tab === "all" && <GeneralBeersList />}
+      {tab === "custom" && <CustomBeersList />}
+    </div>
   )
 }
 

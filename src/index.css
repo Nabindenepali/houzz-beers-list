@@ -104,3 +104,31 @@ button:focus-visible {
   margin-left: .25rem;
   transform: rotate(-180deg);
 }
+
+.no-beer {
+  height: 90vh;
+  text-align: center;
+  background-color: #efefef;
+  padding-top: 10rem;
+  color: grey;
+}
+
+.no-beer a {
+  text-decoration: none;
+}
+
+.tabs {
+  margin-bottom: 1rem;
+}
+
+.tabs span {
+  margin-right: 1rem;
+}
+
+.tabs span.active {
+  font-weight: bold;
+}
+
+.tabs span:hover {
+  cursor: pointer;
+}
