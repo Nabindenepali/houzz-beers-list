@@ -1,14 +1,46 @@
 import "./App.css";
 import {useEffect, useState} from "react";
-import {Card, Button, Modal} from "react-bootstrap";
+import {Card, Button, Modal, OverlayTrigger, Tooltip} from "react-bootstrap";
 import beerImage from './assets/houz-beer.png';
+
+const GeneralBeerImage = ({ beer }) => {
+  return (
+    <OverlayTrigger
+      key="top"
+      placement="top"
+      overlay={
+        <Tooltip id="tooltip-top" style={{position: "fixed"}}>
+          Ingredients: {Object.keys(beer.ingredients).join(", ")}
+        </Tooltip>
+      }
+    >
+      <Card.Img
+        className={"beer-image"}
+        src={beer.image_url}
+      />
+    </OverlayTrigger>
+  )
+}
+
+const CustomBeerImage = () => {
+  return (
+    <Card.Img
+      className="custom-beer-image"
+      src={beerImage}
+    />
+  )
+}
 
 const Beer = ({ beer }) => {
   return (
     <div className="col-12">
       <Card border="light" className="beer-card flex-row">
         <Card.Header className="beer-header">
-          <Card.Img className={beer.image_url ? "beer-image" : "custom-beer-image"} src={beer.image_url || beerImage}/>
+          {
+            beer.image_url ?
+            <GeneralBeerImage beer={beer}/> :
+            <CustomBeerImage/>
+          }
         </Card.Header>
         <Card.Body className="beer-body">
           <Card.Title><h3>{beer.name}</h3></Card.Title>

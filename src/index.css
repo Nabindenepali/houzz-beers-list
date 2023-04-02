@@ -74,8 +74,13 @@ button:focus-visible {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.beer-card:hover {
+  background-color: #ecf2ff;
+  cursor: pointer;
+}
+
 .beer-header {
-  background-color: white !important;
+  background-color: transparent !important;
   border-bottom: none !important;
 }
 
