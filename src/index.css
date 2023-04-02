@@ -70,6 +70,7 @@ button:focus-visible {
 
 .beer-card {
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .beer-header {
@@ -88,6 +89,10 @@ button:focus-visible {
 
 .beer-image {
   width: 2rem !important;
+}
+
+.custom-beer-image {
+  width: 5rem !important;
 }
 
 .load-more {
@@ -115,6 +120,11 @@ button:focus-visible {
 
 .no-beer a {
   text-decoration: none;
+  color: var(--bs-link-color) !important;
+}
+
+.no-beer a:hover {
+  cursor: pointer;
 }
 
 .tabs {
@@ -131,4 +141,20 @@ button:focus-visible {
 
 .tabs span:hover {
   cursor: pointer;
+}
+
+.btn-row {
+  text-align: right;
+}
+
+.input-row {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.custom-beer {
+  width: 25%;
+  border: 1px solid #aeaeae;
+  border-radius: 4px;
+  margin-bottom: 1rem;
 }
