@@ -6,12 +6,12 @@ import beerImage from './assets/houz-beer.png';
 const Beer = ({ beer }) => {
   return (
     <div className="col-12">
-      <Card className="beer-card flex-row">
+      <Card border="light" className="beer-card flex-row">
         <Card.Header className="beer-header">
           <Card.Img className={beer.image_url ? "beer-image" : "custom-beer-image"} src={beer.image_url || beerImage}/>
         </Card.Header>
         <Card.Body className="beer-body">
-          <Card.Title>{beer.name}</Card.Title>
+          <Card.Title><h3>{beer.name}</h3></Card.Title>
           <Card.Subtitle className="beer-subtitle mb-2">{beer.tagline || beer.genre}</Card.Subtitle>
           <Card.Text>{beer.description}</Card.Text>
         </Card.Body>
@@ -58,12 +58,12 @@ const NewBeerForm = ({ isOpen, closeModal, onSubmit }) => {
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-12">
-              <img className="custom-beer" src={beerImage} alt="Beer image"/>
+              <img className="custom-beer form-control" src={beerImage} alt="Beer image"/>
             </div>
             <div className="col-12">
               <input
                 id="name"
-                className="input-row"
+                className="input-row form-control"
                 type="text"
                 placeholder="Beer name*"
                 value={form.name}
@@ -73,7 +73,7 @@ const NewBeerForm = ({ isOpen, closeModal, onSubmit }) => {
             <div className="col-12">
               <input
                 id="genre"
-                className="input-row"
+                className="input-row form-control"
                 type="text"
                 placeholder="Genre*"
                 value={form.genre}
@@ -82,16 +82,17 @@ const NewBeerForm = ({ isOpen, closeModal, onSubmit }) => {
             </div>
             <div className="col-12">
               <textarea
+                rows="4"
                 id="description"
-                className="input-row"
+                className="input-row form-control"
                 placeholder="Description*"
                 value={form.description}
                 onChange={handleChange}
               />
             </div>
             <div className="col-12 btn-row">
-              <Button variant="light" onClick={closeModal}>Cancel</Button>
-              <Button type="submit" variant="primary">Save</Button>
+              <span className="btn-cancel" onClick={closeModal}>Cancel</span>
+              <Button className="btn-save" type="submit" variant="primary">Save</Button>
             </div>
           </div>
         </form>
@@ -103,19 +104,17 @@ const NewBeerForm = ({ isOpen, closeModal, onSubmit }) => {
 const EmptyBeerPage = ({ onAddFirstBeer }) => {
   return (
     <div className="no-beer">
-      <div className="row">
-        <div className="col-12">Nothing to see yet.</div>
-        <div className="col-12"><a onClick={onAddFirstBeer}>Click here</a> to add your first beer!</div>
-      </div>
+      <div className="col-12">Nothing to see yet.</div>
+      <div className="col-12"><a onClick={onAddFirstBeer}>Click here</a> to add your first beer!</div>
     </div>
   )
 }
 
 const BeersView = ({ beers }) => {
   return (
-    <div className="row">
+    <>
       {beers.map((beer, i) => <Beer beer={beer} key={i}/>)}
-    </div>
+    </>
   )
 }
 
@@ -148,7 +147,7 @@ const GeneralBeersList = () => {
       <>
         <BeersView beers={beers} />
         <div className="load-more text-center" onClick={onLoadMore}>
-          <strong>Load More</strong>
+          <strong>Load More&nbsp;</strong>
           <div className="arrow"><strong>^</strong></div>
         </div>
       </>
@@ -186,7 +185,7 @@ const BeersList = () => {
       <div className="col-12 tabs">
         <span className={tab === "all" ? "active" : ""} onClick={() => changeTab("all")}>All Beers</span>
         <span className={tab === "custom" ? "active" : ""} onClick={() => changeTab("custom")}>My Beers</span>
-        {tab === "custom" && <Button className="float-end" variant="primary" onClick={() => setShowForm(true)}>Add a new beer</Button>}
+        {tab === "custom" && <Button className="btn-new-beer" variant="primary" onClick={() => setShowForm(true)}>Add a new beer</Button>}
 
         <NewBeerForm
           isOpen={showForm}

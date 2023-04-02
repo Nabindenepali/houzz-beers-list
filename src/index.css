@@ -71,6 +71,7 @@ button:focus-visible {
 .beer-card {
   margin-bottom: 1rem;
   width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .beer-header {
@@ -111,10 +112,10 @@ button:focus-visible {
 }
 
 .no-beer {
-  height: 90vh;
+  height: 85vh;
   text-align: center;
   background-color: #efefef;
-  padding-top: 10rem;
+  padding: 10rem 0 0 0;
   color: grey;
 }
 
@@ -133,10 +134,13 @@ button:focus-visible {
 
 .tabs span {
   margin-right: 1rem;
+  color: grey;
+  font-size: 18px;
 }
 
 .tabs span.active {
   font-weight: bold;
+  color: black;
 }
 
 .tabs span:hover {
@@ -153,8 +157,30 @@ button:focus-visible {
 }
 
 .custom-beer {
-  width: 25%;
+  width: 25% !important;
   border: 1px solid #aeaeae;
   border-radius: 4px;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
+}
+
+.btn-new-beer {
+  border-radius: 0 !important;
+  float: right;
+}
+
+.btn-cancel {
+  width: 25%;
+  color: grey;
+  font-weight: bold;
+  opacity: 0.5;
+  margin-right: 1rem;
+}
+
+.btn-cancel:hover {
+  cursor: pointer;
+}
+
+.btn-save {
+  border-radius: 0 !important;
+  width: 25%;
 }
