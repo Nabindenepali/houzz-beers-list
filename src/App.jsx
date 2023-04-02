@@ -150,30 +150,7 @@ const BeersView = ({ beers }) => {
   )
 }
 
-const GeneralBeersList = () => {
-  const [beers, setBeers] = useState([]);
-
-  let page = 1;
-
-  const beersFetch = async () => {
-    const data = await (
-      await fetch(
-        `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`
-      )
-    ).json();
-
-    setBeers([...beers, ...data]);
-  };
-
-  useEffect(() => {
-    beersFetch();
-  }, []);
-
-  const onLoadMore = () => {
-    page++;
-    beersFetch();
-  };
-
+const GeneralBeersList = ({ beers, onLoadMore }) => {
   if (beers.length) {
     return (
       <>
@@ -202,7 +179,29 @@ const CustomBeersList = ({ beers, onAddFirstBeer }) => {
 const BeersList = () => {
   const [tab, setTab] = useState("all");
   const [showForm, setShowForm] = useState(false);
+  const [beers, setBeers] = useState([]);
   const [customBeers, setCustomBeers] = useState([]);
+
+  let page = 1;
+
+  const beersFetch = async () => {
+    const data = await (
+      await fetch(
+        `https://api.punkapi.com/v2/beers?page=${page}&per_page=10`
+      )
+    ).json();
+
+    setBeers([...beers, ...data]);
+  };
+
+  useEffect(() => {
+    beersFetch();
+  }, []);
+
+  const onLoadMore = () => {
+    page++;
+    beersFetch();
+  };
 
   const changeTab = (tab) => {
     setTab(tab)
@@ -217,7 +216,11 @@ const BeersList = () => {
       <div className="col-12 tabs">
         <span className={tab === "all" ? "active" : ""} onClick={() => changeTab("all")}>All Beers</span>
         <span className={tab === "custom" ? "active" : ""} onClick={() => changeTab("custom")}>My Beers</span>
-        {tab === "custom" && <Button className="btn-new-beer" variant="primary" onClick={() => setShowForm(true)}>Add a new beer</Button>}
+        {tab === "custom" && <Button
+          className="btn-new-beer"
+          variant="primary"
+          onClick={() => setShowForm(true)}>Add a new beer</Button>
+        }
 
         <NewBeerForm
           isOpen={showForm}
@@ -226,8 +229,15 @@ const BeersList = () => {
         />
       </div>
 
-      {tab === "all" && <GeneralBeersList />}
-      {tab === "custom" && <CustomBeersList beers={customBeers} onAddFirstBeer={() => setShowForm(true)}/>}
+      {tab === "all" && <GeneralBeersList
+        beers={beers}
+        onLoadMore={onLoadMore} />
+      }
+
+      {tab === "custom" && <CustomBeersList
+        beers={customBeers}
+        onAddFirstBeer={() => setShowForm(true)}/>
+      }
     </div>
   )
 }
